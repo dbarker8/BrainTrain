@@ -1,8 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "26.0.0"
+    "sdkVersion": "26.0.0",
+    "splash": {
+        "image": "./src/assets/img/braintrain_splash.png",
+        "resizeMode": "cover"
+    },
+    "icon": "./src/assets/img/braintrain_app_icon.png",
+    "orientation": "portrait"
   },
   "android": {
     "package": "org.test"
   }
+
 }

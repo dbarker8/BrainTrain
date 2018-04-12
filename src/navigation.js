@@ -11,6 +11,8 @@ const Nav = StackNavigator({
     MainMenuScreen: { screen: MainMenuScreen },
     PlayGameScreen: { screen: PlayGameScreen },
     HighScoresScreen: { screen: HighScoresScreen },
+}, {
+    headerMode: 'none'
 });
 
 export default class RootNavigation extends React.Component {

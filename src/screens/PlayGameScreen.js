@@ -22,8 +22,8 @@ export class PlayGameScreen extends React.Component {
             currentQuestionIndex: 0,
             countdownNumber: 3,
             isCountingDown: true,
-            gameTimerNumber: 63,
-            showGameFinishedModal: true
+            gameTimerNumber: 63, //60 sec games, 3 sec buffer for countdown
+            showGameFinishedModal: false
         }
     }
 
@@ -44,7 +44,7 @@ export class PlayGameScreen extends React.Component {
             this.setState({gameTimerNumber: this.state.gameTimerNumber-1});
           }else{
               //end game
-              alert('game over screen shows now');
+              this.setState({showGameFinishedModal: true});
               clearInterval(this.gameTimer);              
           }
         }, 1000);
@@ -65,7 +65,6 @@ export class PlayGameScreen extends React.Component {
             }
         }
     }
-
 
     handleDeleteKeyPress(){
         let newAnswer = this.state.answer;
@@ -185,28 +184,32 @@ export class PlayGameScreen extends React.Component {
                 answer: '',
             });
         }, 100);
-
     }
-
-
 
     render() {
         let currentQuestion = <Text key={this.state.currentQuestionIndex} style={styles.question}>{this.state.questionsList[this.state.currentQuestionIndex].text}</Text>
         let currentAnswer = <Text key={this.state.currentQuestionIndex} style={styles.answer} >{this.state.answer}</Text> ;
+        let gameFinishedModal = this.state.showGameFinishedModal ? 
+            <GameFinishedModal 
+                showModal={this.state.showGameFinishedModal}
+                hideModal={this.hideModal.bind(this)}
+                score={this.state.currentQuestionIndex}
+                difficulty={this.props.navigation.state.params.difficulty}
+            />
+            : null;
 
         return (
 
             <SafeAreaView style={styles.container}>
+
             {this.state.isCountingDown ? 
+
                 <Text style={styles.countdown}>{this.state.countdownNumber}</Text>
+
             : 
+
                 <View style={styles.gameView}>
-
-                    <GameFinishedModal 
-                        showModal={this.state.showGameFinishedModal}
-                        hideModal={this.hideModal.bind(this)}
-                    />
-
+                    {gameFinishedModal}
                     <Text style={styles.time}>{this.state.gameTimerNumber}</Text>
                     <View style={styles.topView}>
                         {currentQuestion}
@@ -221,7 +224,8 @@ export class PlayGameScreen extends React.Component {
                         backKeyPress={() => this.handleBackKeyPress()}
                     />
                 </View>
-                }
+            }
+
             </SafeAreaView>
         );
     }
@@ -249,16 +253,13 @@ const styles = StyleSheet.create({
         fontSize: 42,
         textAlign: 'center',
         fontWeight: 'bold',
-        // flex:1,
     },
     answer: {
         color: Colors.main, 
         fontSize: 36,
         textAlign: 'center',
         marginTop: 50,
-        minHeight:50,
-
-        // flex:1,    
+        minHeight:50, 
     },
     answerWrapper: {
         borderBottomWidth:1,
@@ -285,7 +286,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
         marginTop: (Dimensions.get('window').height/2)-70,
-        // width:'100%',
-        // height: '100%',
     }
 });

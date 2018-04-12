@@ -3,31 +3,24 @@ import { View, SafeAreaView, StyleSheet, ScrollView, Platform, Dimensions, Image
 import { Button, Text } from 'native-base';
 import Colors from '../assets/GlobalStyles';
 import { LinearGradient } from 'expo';
+import InfoModal from '../components/InfoModal';
 
 let d = Dimensions.get('window');
 
 export class MainMenuScreen extends React.Component {
-    static navigationOptions = (props) => {
-      return {
-        // title: 'Logo',
-        header: false,
-      }
-    }
-
-
 
     constructor(props){
         super(props);
 
         this.state = {
             spinValue: new Animated.Value(0),
+            showInfoModal: false,
         }
+
         this.runAnimation();
-
-
     }
 
-    runAnimation(){
+    runAnimation(){ //starts the animated value for logo spinning
         this.state.spinValue.setValue(0);
         Animated.timing(
             this.state.spinValue,
@@ -50,6 +43,9 @@ export class MainMenuScreen extends React.Component {
                 <ImageBackground source={require('../assets/img/tiles.png')} style={{ flex: 1}} >
                     <SafeAreaView style={{flex:1}}>
                         <View style={styles.container}>
+
+                            <InfoModal showModal={this.state.showInfoModal} hideModal={() => this.setState({showInfoModal: false})}/>
+
                             <Animated.Image source={require('../assets/img/brain.png')} style={[ {transform: [{rotate: spin}]}, styles.logo ]} />
                             <View style={styles.topButtonContainer}>
                                 <Text style={styles.menuLabel}>New Game</Text>
@@ -64,7 +60,7 @@ export class MainMenuScreen extends React.Component {
                                 <Button bordered light style={styles.halfButton} onPress={() => this.props.navigation.navigate('HighScoresScreen', {  })}>
                                     <Text>High Scores</Text>
                                 </Button>
-                                <Button bordered light style={styles.halfButton} onPress={() => alert('about pressed')}>
+                                <Button bordered light style={styles.halfButton} onPress={() => this.setState({showInfoModal: true})}>
                                     <Text>More</Text>
                                 </Button>
                             </View>
@@ -81,10 +77,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical:d.height/5,
+        paddingVertical: d.height/5,
         width:'100%',
-        // backgroundColor: 'red'
-        
     },
     menuButton: {
         marginHorizontal: 15,
@@ -98,12 +92,10 @@ const styles = StyleSheet.create({
     },
     bottomButtonRow: {
         flexDirection: 'row',
-        // width: '100%',
         justifyContent: 'space-between',
         paddingTop:15,
     },
     topButtonContainer: {
-        // flex: 1,
         width: '100%',
         marginTop:30
     },
@@ -118,6 +110,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         opacity:.9,
         marginVertical:10,
-
     }
 });
