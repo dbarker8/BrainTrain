@@ -6,10 +6,15 @@
         "resizeMode": "cover"
     },
     "icon": "./src/assets/img/braintrain_app_icon.png",
+    "slug": "BrainTrain",
     "orientation": "portrait"
   },
   "android": {
-    "package": "org.test"
+    "package": "com.BrainTrain.BrainTrain"
+  },
+  "ios": {
+    "bundleIdentifier": "com.BrainTrain.BrainTrain"
+  }
   }
 
 }
