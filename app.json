@@ -1,20 +1,20 @@
 {
   "expo": {
+    "name": "BrainTrain",
+    "icon": "./src/assets/img/braintrain_app_icon.png",
+    "version": "1.0.0",
+    "slug": "BrainTrain",
     "sdkVersion": "26.0.0",
+    "orientation": "portrait",
     "splash": {
         "image": "./src/assets/img/braintrain_splash.png",
         "resizeMode": "cover"
     },
-    "icon": "./src/assets/img/braintrain_app_icon.png",
-    "slug": "BrainTrain",
-    "orientation": "portrait"
+    "ios": {
+      "bundleIdentifier": "com.braintrain.braintrain"
+    },
+    "android": {
+      "package": "com.braintrain.braintrain"
+    }
   },
-  "android": {
-    "package": "com.BrainTrain.BrainTrain"
-  },
-  "ios": {
-    "bundleIdentifier": "com.BrainTrain.BrainTrain"
-  }
-  }
-
 }
